@@ -1,6 +1,6 @@
 pipeline {
   agent any
-          checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'b16eb3fb-59f7-481c-a87e-943f3685a210', url: 'https://github.com/johnkyei/myrepoforjava']]])}
+ 
   tools {
   maven 'Maven3'
   }
