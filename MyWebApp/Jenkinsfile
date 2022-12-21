@@ -1,6 +1,6 @@
 pipeline {
   agent any
- 
+          checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'b16eb3fb-59f7-481c-a87e-943f3685a210', url: 'https://github.com/johnkyei/myrepoforjava']]])}
   tools {
   maven 'Maven3'
   }
@@ -64,7 +64,7 @@ pipeline {
      stage ('QA Deploy') {
       steps {
         echo "deploying to QA Env "
-        deploy adapters: [tomcat9(credentialsId: '490f8e9b-67b7-4ce1-af17-d63c29ef575e', path: '', url: 'http://http://ec2-52-91-146-114.compute-1.amazonaws.com:8080')], contextPath: null, war: '**/*.war'
+        deploy adapters: [tomcat9(credentialsId: '490f8e9b-67b7-4ce1-af17-d63c29ef575e', path: '', url: 'http://ec2-52-91-146-114.compute-1.amazonaws.com:8080')], contextPath: null, war: '**/*.war'
         }
     }
     stage ('QA Approve') {
@@ -78,7 +78,7 @@ pipeline {
        stage ('Slack Notification for QA Deploy') {
       steps {
         echo "deployed to QA Env successfully"
-        slackSend(channel:'your slack channel_name', message: "Job is successful, here is the info - Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+        slackSend(channel:'devopp', message: "Job is successful, here is the info - Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
       }
     }  
   }
